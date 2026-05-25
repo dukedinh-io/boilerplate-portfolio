@@ -1,47 +1,158 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Terminal, Code, Copy, CheckCircle, Cpu, Zap, ShoppingCart, Github, Server, Database, Box, Users, Layers, Mail, Play, Globe, Cloud } from 'lucide-react';
+import { ExternalLink, Terminal, Code, Copy, CheckCircle, Cpu, Zap, ShoppingCart, Github, Server, Database, Box, Users, Layers, Mail, Play, Globe, Cloud, ChevronDown } from 'lucide-react';
 
 const products = [
   {
-    id: 'async-cv',
-    title: 'Async CV Engine',
-    description: 'A production-ready asynchronous computer vision pipeline built with FastAPI, Celery, and Redis. Plug in your models and scale infinitely.',
-    price: '$149',
-    tags: ['Python', 'FastAPI', 'Redis', 'Docker'],
-    link: '#buy',
-    status: 'available',
-    icon: <Cpu className="w-8 h-8 text-lime-400" />,
-  },
-  {
-    id: 'k8s-object-detector',
-    title: 'Distributed Object Detection',
-    description: 'Kubernetes-native object detection architecture template. Distributed inferencing setup utilizing YOLOv8, message queues, and auto-scaling pods.',
+    id: 'object-detection-flow',
+    title: 'Object Detection Flow',
+    description: 'Production-ready object detection architecture. Deploy robust computer vision models with ease using our battle-tested pipeline and extensive documentation.',
     price: '$199',
-    tags: ['Kubernetes', 'YOLO', 'RabbitMQ', 'Helm'],
+    tags: ['Computer Vision', 'YOLO', 'Python', 'Architecture'],
     link: '#buy',
     status: 'available',
     icon: <Zap className="w-8 h-8 text-blue-400" />,
+    features: ['End-to-End inference pipeline', 'REST API setup included', 'Streamlit dashboard attached', 'Complete deployment scripts'],
   },
   {
-    id: 'fullstack-ai-saas',
-    title: 'Full-Stack AI SaaS (AWS)',
-    description: 'A complete production-ready Next.js & Node.js boilerplate for AI platforms. Deploys to AWS seamlessly with built-in S3 integration and monetization.',
+    id: 'saas-core',
+    title: 'SaaS Core',
+    description: 'A complete production-ready full-stack boilerplate for scaling SaaS platforms. Launch your next big idea faster with our secure, highly scalable, and customizable core.',
     price: '$199',
     tags: ['Next.js', 'Node.js', 'AWS', 'TypeScript'],
     link: '#buy',
     status: 'preparing',
     icon: <Globe className="w-8 h-8 text-purple-400" />,
+    features: ['Magic links & social auth', 'Stripe checkout & webhooks', 'Optimized database schema', 'AWS CDK deployment ready'],
   },
   {
-    id: 'django-ai-core',
-    title: 'Django AI Core',
-    description: 'Monolithic yet scalable Python backend with Django. Integrated with Celery for background AI tasks and PostgreSQL for vector embeddings.',
-    price: '$129',
-    tags: ['Python', 'Django', 'Celery', 'PostgreSQL'],
+    id: 'async-cv',
+    title: 'Async CV Engine',
+    description: 'A production-ready asynchronous computer vision pipeline built with FastAPI, Celery, and Redis. Plug in your models and scale infinitely to handle high loads without bottlenecks.',
+    price: '$149',
+    tags: ['Python', 'FastAPI', 'Redis', 'Docker'],
     link: '#buy',
     status: 'preparing',
-    icon: <Database className="w-8 h-8 text-emerald-400" />,
+    icon: <Cpu className="w-8 h-8 text-lime-400" />,
+    features: ['Celery worker auto-scaling', 'Redis message brokering', 'Non-blocking FastAPI endpoints', 'Full Docker compose setup'],
+  }
+];
+
+const caseStudies = [
+  {
+    title: "LensaHub - Serverless Website Provisioning",
+    role: "Full-stack Developer",
+    description: "Developed a comprehensive CMS that acts as a SaaS platform for deploying and provisioning dynamic websites. The system features hierarchical management (System Admin -> Company -> End-User CMS) and is completely powered by a serverless AWS backend.",
+    tech: ["React.js", "Node.js", "AWS Lambda", "AWS Step Functions", "MySQL"],
+    icon: <Globe className="w-8 h-8 text-blue-400" />
+  },
+  {
+    title: "Educon - Distributed E-Learning Ecosystem",
+    role: "Tech Lead & DevOps",
+    description: "Designed and led the development of a modular e-learning platform. Built a central configuration hub (Palette) that manages satellite systems for selling courses (Manabite) and conducting examinations (Tokite).",
+    tech: ["React.js", "Laravel", "Stripe Integration", "AWS EC2", "Docker"],
+    icon: <Database className="w-8 h-8 text-emerald-400" />
+  }
+];
+
+const experiences = [
+  {
+    role: "Front-end Team Leader, Unity Developer, Full-stack Developer",
+    company: "Live2D",
+    period: "Mar 2026 - Present",
+    description: "Livestream system featuring integrated 2D models, management, and customization.",
+    tech: ["NodeJS", "ReactJS", "NextJS", "Unity"],
+    highlights: [
+      "Led the front-end team and developed Unity components for a robust livestreaming application.",
+      "Implemented comprehensive 2D model management, integration, and customization features."
+    ]
+  },
+  {
+    role: "Team Leader, Full-stack Developer",
+    company: "Omoide + Dubbing",
+    period: "Dec 2025 - Mar 2026",
+    description: "Video conversion and storage management system with a focus on performance optimization.",
+    tech: ["NodeJS", "ReactJS", "NextJS"],
+    highlights: [
+      "Designed and implemented storage package systems and system maintenance workflows.",
+      "Optimized overall performance and successfully executed a server migration for the video pipeline."
+    ]
+  },
+  {
+    role: "Full-stack Engineer (R&D / Solution Design)",
+    company: "Digital Printing - AI Object Detection",
+    period: "Oct 2025 - Dec 2025",
+    description: "Automated AI system for vehicle part detection and upgrade suggestions.",
+    tech: ["Python", "Machine Learning", "NodeJS", "ReactJS"],
+    highlights: [
+      "Designed end-to-end architecture: from model selection and annotation to training and API deployment.",
+      "Authored project plans, capacity estimates, and technical requirements for the development team."
+    ]
+  },
+  {
+    role: "Full-stack Developer",
+    company: "Amivoice",
+    period: "Jul 2025 - Oct 2025",
+    description: "Voice recognition system for conversations and video, including a desktop app.",
+    tech: ["NodeJS", "ReactJS", "Electron/Desktop"],
+    highlights: [
+      "Developed core voice recognition pipelines applied to meetings and video streams.",
+      "Built a companion desktop app featuring auto-updates and customizable keyboard shortcuts."
+    ]
+  },
+  {
+    role: "Full-stack Developer",
+    company: "Unicore",
+    period: "Apr 2025 - Jul 2025",
+    description: "B2B Factory attendance management system.",
+    tech: ["NextJS", "Supabase", "PostgreSQL", "Vercel"],
+    highlights: [
+      "Built a multi-tenant attendance platform serving System Admins, Company Admins, and Employees."
+    ]
+  },
+  {
+    role: "Full-stack Developer",
+    company: "LensaHub",
+    period: "Apr 2024 - Apr 2025",
+    description: "CMS for creating & provisioning websites. Handled system administration, company management, and user-facing dynamic page generation.",
+    tech: ["ReactJS", "Redux", "NodeJS (Serverless)", "MySQL", "AWS"],
+    highlights: [
+      "Built serverless infrastructure using AWS Lambda, StateMachine, EC2, S3, Cloudfront, and RDS.",
+      "Developed comprehensive access control for 3 distinct user scopes (System, Company, CMS)."
+    ]
+  },
+  {
+    role: "Technical Leader, Full-stack Developer, DevOps",
+    company: "Educon",
+    period: "Jan 2023 - Apr 2024",
+    description: "E-learning ecosystem consisting of a central configuration system and satellite systems for course and exam management.",
+    tech: ["ReactJS", "PHP (Laravel)", "MySQL", "AWS", "Stripe"],
+    highlights: [
+      "Led development of 'Palette' configuration core and 'Manabite', 'Tokite' satellite e-commerce and exam platforms.",
+      "Managed CI/CD and deployment pipelines using Github Actions, AWS EC2, and Route53."
+    ]
+  },
+  {
+    role: "Full-stack Developer, DevOps",
+    company: "Wellness Kun",
+    period: "Jun 2022 - Jan 2023",
+    description: "Comprehensive health and wellness management platform for enterprises and end-users.",
+    tech: ["AngularJS", "NodeJS (Express)", "MongoDB", "Docker"],
+    highlights: [
+      "Implemented a multi-tenant B2B health tracking portal integrating companies and internal users."
+    ]
+  },
+  {
+    role: "Full-stack Developer",
+    company: "Vector / Kensho / Nom",
+    period: "Apr 2021 - Jun 2022",
+    description: "Multiple projects including testing systems, Twitter content management, and an online dating social network.",
+    tech: ["NextJS", "Python (API)", "Ruby on Rails", "Firestore", "PostgreSQL"],
+    highlights: [
+      "Built custom online testing & question gen systems used by multiple clients.",
+      "Designed real-time Twitter data mirroring & scheduling platforms.",
+      "Architected matching algorithms & chat functions for an online dating platform."
+    ]
   }
 ];
 
@@ -57,6 +168,16 @@ function StatCard({ number, label }: { number: string, label: string }) {
 export default function App() {
   const [activeTab, setActiveTab] = useState<'portfolio' | 'github'>('portfolio');
   const [copied, setCopied] = useState(false);
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+
+  const handleTimelineScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 20) {
+      setIsScrolledToBottom(true);
+    } else {
+      setIsScrolledToBottom(false);
+    }
+  };
 
   const githubMarkdown = `
 <h1 align="center">Hi 👋, I'm building scalable Software Architectures</h1>
@@ -71,10 +192,9 @@ export default function App() {
 ## 🚀 Premium Boilerplates
 If you want to ship faster without reinventing the wheel, check out our premium templates available on Gumroad and Lemon Squeezy:
 
-*   📦 **[Async CV Engine ⚡](#)** - Asynchronous CV pipeline with FastAPI & Celery.
-*   📦 **[Distributed Object Detection 🧿](#)** - Kubernetes-native inferencing architecture.
-*   📦 **[Full-Stack AI SaaS 🌐](#)** - Production-ready Next.js, Node.js & AWS boilerplate.
-*   📦 **[Django AI Core 🐍](#)** - Monolithic AI backend with Django & Postgres.
+*   📦 **[Object Detection Flow 🧿](#)** - Production-ready object detection architecture. (Available Now)
+*   📦 **[SaaS Core 🌐](#)** - Complete production-ready full-stack boilerplate. (In Development)
+*   📦 **[Async CV Engine ⚡](#)** - Asynchronous CV pipeline with FastAPI & Celery. (DOING)
 
 [Deploy faster with our boilerplates →](#)
 
@@ -170,18 +290,18 @@ If you want to ship faster without reinventing the wheel, check out our premium 
                   <a href="#boilerplates" className="px-6 py-3 bg-lime-500 text-gray-950 font-semibold rounded-lg hover:bg-lime-400 transition-colors inline-flex items-center gap-2">
                     View Boilerplates <ExternalLink className="w-5 h-5" />
                   </a>
-                  <a href="https://gumroad.com" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
-                    Gumroad
-                  </a>
                   <a href="https://lemonsqueezy.com" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
                     Lemon Squeezy
+                  </a>
+                  <a href="https://gumroad.com" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
+                    Gumroad
                   </a>
                 </div>
               </section>
 
               {/* Stats Section */}
               <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <StatCard number="200+" label="Happy Devs" />
+                <StatCard number="5+" label="Years Experience" />
                 <StatCard number="10k+" label="Hours Saved" />
                 <StatCard number="99.9%" label="Reliability" />
                 <StatCard number="24/7" label="Support" />
@@ -215,11 +335,23 @@ If you want to ship faster without reinventing the wheel, check out our premium 
                         )}
                       </div>
                       <h3 className="text-2xl font-bold mb-3">{product.title}</h3>
-                      <p className="text-gray-400 leading-relaxed mb-8 flex-grow">
-                        {product.description}
-                      </p>
+                      <div className="grid grid-cols-1 grid-rows-1 flex-grow mb-8 relative">
+                        <p className="col-start-1 row-start-1 text-gray-400 leading-relaxed group-hover:opacity-0 transition-opacity duration-300 z-10 self-start">
+                          {product.description}
+                        </p>
+                        <div className="col-start-1 row-start-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-start z-20 pointer-events-none self-start">
+                          <ul className="space-y-3">
+                            {product.features?.map(feature => (
+                              <li key={feature} className="flex items-start gap-2 text-sm text-gray-200">
+                                <CheckCircle className="w-5 h-5 text-lime-400 flex-shrink-0" />
+                                <span className="leading-tight">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
                       
-                      <div className="flex flex-wrap gap-2 mb-8">
+                      <div className="flex flex-wrap gap-2 mb-8 relative z-30">
                         {product.tags.map(tag => (
                           <span key={tag} className="px-3 py-1 font-mono text-xs bg-gray-800 text-gray-300 border border-white/5 rounded-md">
                             {tag}
@@ -227,7 +359,7 @@ If you want to ship faster without reinventing the wheel, check out our premium 
                         ))}
                       </div>
 
-                      <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
+                      <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto relative z-30">
                         <span className="text-2xl font-mono text-white group-hover:text-lime-400 transition-colors">{product.price}</span>
                         <button 
                           disabled={product.status === 'preparing'}
@@ -277,31 +409,98 @@ If you want to ship faster without reinventing the wheel, check out our premium 
                 </div>
               </section>
 
-              {/* Custom Architecture Consulting */}
-              <section>
-                <div className="bg-lime-500/5 border border-lime-500/20 rounded-3xl p-10 md:p-16 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-10">
-                  <div className="max-w-2xl">
-                    <h2 className="text-3xl font-bold mb-4 text-white">Need a custom architecture?</h2>
-                    <p className="text-lg text-gray-400 leading-relaxed mb-8 border-b border-lime-500/10 pb-8">
-                      We also offer specialized consulting and custom system design for enterprise machine learning applications. Whether it's edge deployment, massive distributed inferencing, or custom model integration, we can help.
-                    </p>
-                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 opacity-70">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-5 h-5 text-lime-400" />
-                        <span className="font-mono text-sm leading-none">Dedicated Team</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Server className="w-5 h-5 text-lime-400" />
-                        <span className="font-mono text-sm leading-none">Enterprise SLA</span>
-                      </div>
+              {/* Experience & Timeline */}
+              <section id="experience" className="pt-16 mt-16 border-t border-white/10">
+                <div className="mb-10 lg:w-2/3">
+                  <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Experience & Timeline</h2>
+                  <p className="text-xl text-gray-400 leading-relaxed">
+                    My professional journey building distributed systems, scalable web apps, and enterprise architectures.
+                  </p>
+                </div>
+                <div className="relative">
+                  <div 
+                    className="max-h-[600px] overflow-y-auto pr-4 -mr-4 custom-scrollbar"
+                    onScroll={handleTimelineScroll}
+                  >
+                    <div className="relative border-l border-white/10 ml-4 md:ml-6 space-y-12 pb-8 pt-2">
+                      {experiences.map((exp, idx) => (
+                        <div key={idx} className="relative pl-8 md:pl-12">
+                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-lime-400 ring-4 ring-gray-950" />
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2 gap-2">
+                            <h3 className="text-xl md:text-2xl font-bold text-white transition-colors">
+                              {exp.role} <span className="text-gray-500 font-normal">@ {exp.company}</span>
+                            </h3>
+                            <span className="font-mono text-sm text-lime-400/80 shrink-0">{exp.period}</span>
+                          </div>
+                          
+                          <p className="text-gray-400 leading-relaxed mb-4">{exp.description}</p>
+                          
+                          <ul className="space-y-2 mb-6">
+                            {exp.highlights.map((highlight, hIdx) => (
+                              <li key={hIdx} className="flex items-start gap-2 text-sm text-gray-300">
+                                <CheckCircle className="w-5 h-5 text-lime-500/50 mt-0.5 shrink-0" />
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className="flex flex-wrap gap-2">
+                            {exp.tech.map((t, tIdx) => (
+                              <span key={tIdx} className="px-3 py-1 font-mono text-xs bg-gray-800 text-gray-300 border border-white/5 rounded-md">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <div>
-                    <button className="px-8 py-4 bg-white text-gray-950 font-bold rounded-xl hover:bg-lime-400 hover:text-gray-950 transition-all flex items-center justify-center gap-2 w-full sm:w-auto shadow-[0_0_40px_-10px_rgba(163,230,53,0.3)]">
-                      <Mail className="w-5 h-5" />
-                      Book a Consult
-                    </button>
+                  
+                  {/* Scroll Indicator Overlay */}
+                  <div 
+                    className={`absolute bottom-0 left-0 right-0 h-32 pointer-events-none bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent flex items-end justify-center pb-4 transition-opacity duration-500 ${isScrolledToBottom ? 'opacity-0' : 'opacity-100'}`}
+                  >
+                    <div className="flex flex-col items-center text-lime-400 animate-bounce">
+                      <span className="text-xs font-mono mb-1 uppercase tracking-widest bg-gray-950/60 px-3 py-1 rounded-full backdrop-blur-sm border border-white/5 shadow-lg">Scroll for more</span>
+                      <ChevronDown className="w-5 h-5 drop-shadow-md" />
+                    </div>
                   </div>
+                </div>
+              </section>
+
+              {/* Case Studies */}
+              <section id="case-studies" className="pt-16 mt-16 border-t border-white/10">
+                <div className="mb-10 lg:w-2/3">
+                  <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Deep-Dive Case Studies</h2>
+                  <p className="text-xl text-gray-400 leading-relaxed">
+                    A closer look at the architecture and problem-solving behind complex platforms.
+                  </p>
+                </div>
+
+                <div className="grid lg:grid-cols-2 gap-8">
+                  {caseStudies.map((study, idx) => (
+                    <div key={idx} className="bg-gray-900 border border-white/10 p-8 rounded-2xl hover:border-lime-500/30 transition-all flex flex-col items-start group">
+                      <div className="p-4 bg-white/5 rounded-xl border border-white/10 shrink-0 mb-6 group-hover:scale-110 group-hover:bg-lime-500/10 transition-all duration-300">
+                        {study.icon}
+                      </div>
+                      <h3 className="text-2xl font-bold mb-2 text-white">{study.title}</h3>
+                      <p className="text-sm font-mono text-lime-400/80 mb-4">{study.role}</p>
+                      
+                      <p className="text-gray-400 leading-relaxed mb-8 flex-grow">
+                        {study.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2 mt-auto w-full pt-6 border-t border-white/5">
+                        {study.tech.map((t, tIdx) => (
+                          <div key={tIdx} className="flex items-center gap-1.5 text-sm text-gray-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gray-600"></span>
+                            {t}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </section>
             </motion.div>
